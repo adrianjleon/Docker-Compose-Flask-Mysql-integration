@@ -1,0 +1,19 @@
+f{% extends 'base.html' %}
+
+
+{% block title %}
+   Agregar nodo 
+{% endblock %}
+
+<div>
+
+f{% block content %}
+
+<form method="POST"></form>
+    {{ form.hidden_tag()  }}
+    {{ form.id_nodo.label  }} {{ form.id_nodo()  }}
+    
+    {{  form.submit() }}
+{% endblock %}
+
+</div>

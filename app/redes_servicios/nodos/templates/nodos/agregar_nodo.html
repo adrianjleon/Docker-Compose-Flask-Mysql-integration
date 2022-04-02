@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+   Agregar nodo 
+{% endblock %}
+
+<div>
+
+{% block content %}
+
+<form method="POST">
+    {{ form.hidden_tag()  }}
+    {{ form.nombre_nodo.label  }} {{ form.nombre_nodo()  }}
+    {{ form.ip_nodo.label  }} {{ form.ip_nodo()  }}
+    {{ form.peid_nodo.label  }} {{ form.peid_nodo()  }}
+    {{  form.submit() }}
+</form>
+{% endblock %}
+
+</div>

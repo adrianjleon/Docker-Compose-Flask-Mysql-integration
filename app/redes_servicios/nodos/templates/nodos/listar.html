@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+   Nodos 
+{% endblock %}
+
+<div>
+
+{% block content %}
+
+<ul>
+
+{% if nodos %}
+ 
+    {% for nodo in nodos %}
+
+    <li>{{nodo}}</li>
+        
+    {% endfor %}
+    
+{% else %}
+    NO HAY NADA PARA MOSTRAR
+{% endif %}
+
+</ul>
+
+{% endblock %}
+
+</div>

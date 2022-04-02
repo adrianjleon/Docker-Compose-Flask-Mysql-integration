@@ -1,0 +1,66 @@
+version: "3.9"
+
+# Dentro de services indico el nombre de cada contenedor
+# Si es una app propia, se señala el directorio como valor en build:
+# Si se requiere extraer y correr una imager prediseñada se usa image: nombre_imagen
+# Si se requiere comunicacion de red entre los container se crea un parametro networks: nombre_comun
+services:
+  web:
+    build: app
+    # Caso de falla reiniciar siempre hasta levantar
+    restart: always
+    # Comunicacion entre host (izquierda) y el container (derecha) 
+    ports:
+      - "8000:5000"
+    # Apuntar desde el directorio guest (derecha)  al directorio host (iquierda)
+    # para hacer la data existente persistente
+    # Directorio en maquina host app y directorio de trabajo creada en el dockerfile para el guest
+    volumes:
+      - ./app:/app
+    # Ya links fue reemplazado por netwokrs pero no lo elimine
+    links:
+      - mysql
+    # Si se requiere comunicacion de red entre los container se crea un parametro networks: nombre_comun  
+    networks:  
+      - app_net_oficial
+    environment:
+      FLASK_ENV: development
+    # se nombra al container como hostname
+    container_name: flask_oficial
+
+  mysql:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    #restart: always
+    volumes:
+    # OJOOOO: LAS LINEAS LLAMADAS DOLORES DE CABEZA
+    # linea 1 configuracion de db
+    # linea 2 donde se creara la db
+    # linea 3 opcional si se migra una db existente y se llama init.sql
+      - ./db/config/config.cnf:/etc/mysql/conf.d/config.cnf:rw
+      - db:/var/lib/mysql
+      - ./db/init-dump:/docker-entrypoint-initdb.d
+    ports:
+      - 33060:3306
+    # Si se requiere comunicacion de red entre los container se crea un parametro networks: nombre_comun 
+    networks:  
+      - app_net_oficial
+    container_name: mysql_app_oficial
+    environment:
+      # configuracion del password del root
+      MYSQL_ROOT_PASSWORD: "root"
+      
+      MYSQL_USER: usuario
+      MYSQL_PASSWORD: usuario
+      
+
+
+
+volumes:
+  app: {}
+  db: {}
+    
+  
+networks:
+  app_net_oficial:
+    driver: bridge
