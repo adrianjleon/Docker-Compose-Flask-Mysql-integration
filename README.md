@@ -22,7 +22,7 @@ La aplicacion tiene como fin la estructuración, organización y disponibilidad 
 
 [![tco.png](https://i.postimg.cc/bv6kygV5/tco.png)](https://postimg.cc/yJZknmHh)
 
-## Instalación
+## Instalación e inicio de los contenedores
 
 ### Desde Consola:
 [![1.jpg](https://i.postimg.cc/ydhQpFr8/1.jpg)](https://postimg.cc/XGJkpybR)
